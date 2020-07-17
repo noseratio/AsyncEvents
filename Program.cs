@@ -17,7 +17,7 @@ namespace AsyncEvents
             IAsyncEnumerable<(Component, string)> source, 
             CancellationToken token)
         {
-            await foreach (var (component, text) in source.WithCancellation(token))
+            await foreach (var (component, text) in source)
             {
                 // e.g., delay processing
                 await Task.Delay(100, token);

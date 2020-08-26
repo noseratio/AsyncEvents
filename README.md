@@ -1,5 +1,6 @@
-## C# events as asynchronous streams using System.Threading.Channels.
-This article was originally published on [DEV.TO and is available for comments there](https://dev.to/noseratio/c-events-as-asynchronous-streams-with-reactivex-or-channels-82k).
+# C# events as asynchronous streams with ReactiveX or Channels
+
+This is the source repro my article published on [DEV.TO](https://dev.to/noseratio/c-events-as-asynchronous-streams-with-reactivex-or-channels-82k).
 
 As I am getting myself up to date with the modern C# language features, I'd like to share what feels like an interesting and natural use case for [`IAsyncEnumerable`](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.iasyncenumerable-1?view=dotnet-plat-ext-3.1): **iterating through a sequence of arbitrary events**.
 
@@ -70,7 +71,7 @@ Various LINQ operators can now be applied to the `source` stream above, like pro
 
 Running it and clicking the button:
 
-![A simple Winforms app](async-events.png)<a name="channels"></a>
+![A simple Winforms app](https://github.com/noseratio/AsyncEvents/raw/main/async-events.png)<a name="channels"></a>
 
 ### Producing async streams with `System.Threading.Channels`
 
@@ -178,8 +179,14 @@ It produces exactly the same result as with ReactiveX (provided we can manage to
 
 The domain of the problems that C# asynchronous streams can help solving certainly overlaps with that of the Reactive Extensions (aka ReactiveX/Rx.NET/Rx). E.g., in the first example above I could have just [subscribed](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/ff402852(v=vs.103)) to `mergedObservable` notifications and used the powerful toolbox of `System.Reactive.Linq` extensions to process them.
 
-That said, I personally find it is easier to understand the pseudo-liner code flow of `async`/`await`, than the fluent syntax of ReactiveX. In my opinion, it may also be easier to structure the exception handling (*particularly*, [cancellations](https://docs.microsoft.com/en-us/dotnet/standard/threading/cancellation-in-managed-threads)) while using the familiar language constructs like `foreach`, `yield return`, `try`/`catch`/`finally`. I myself only recently came across `IAsyncEnumerable`, and I decided to try it out by [implementing coroutines in C#](https://stackoverflow.com/questions/22852251/async-await-as-a-replacement-of-coroutines/62687410#62687410). I certainly didn't need ReactiveX for that. 
+That said, I personally find it is easier to understand the pseudo-liner code flow of `async`/`await`, than the fluent syntax of ReactiveX. In my opinion, it may also be easier to structure the exception handling (*particularly*, [cancellations](https://docs.microsoft.com/en-us/dotnet/standard/threading/cancellation-in-managed-threads)) while using the familiar language constructs like `foreach`, `yield return`, `try`/`catch`/`finally`. I myself only recently came across `IAsyncEnumerable`, and I decided to try it out by [implementing coroutines in C#](https://dev.to/noseratio/asynchronous-coroutines-with-c-8-0-and-iasyncenumerable-2e04). I certainly didn't need ReactiveX for that. 
 
 However, it should be quite possible to combine ReactiveX and C# asynchronous streams to work together for complex asynchronous workflows.
 
-I hope this has been useful. I'll be blogging more on this topic as I make progress with my side project. [Follow me on twitter](https://twitter.com/noseratio) for updates, if interested.
+I hope this has been useful. I'll be blogging more on this topic as I make progress with my [side project](https://github.com/postprintum/devcomrade).
+
+**Updated**, here's a follow-up blog post:
+[Asynchronous coroutines with C# 8.0 and IAsyncEnumerable](https://dev.to/noseratio/asynchronous-coroutines-with-c-8-0-and-iasyncenumerable-2e04).
+
+[Follow me on twitter](https://twitter.com/noseratio) for further updates, if interested.
+ 
